@@ -2,6 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from import_export.admin import ImportExportModelAdmin
 
 from .models import Category, Skill, SkillLevel, User, UserSkill
 
@@ -9,7 +10,7 @@ admin.site.register(User, UserAdmin)
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin[Category]):
+class CategoryAdmin(ImportExportModelAdmin,admin.ModelAdmin[Category]):
     """Admin class for the Category model."""
 
     list_display = ("name", "description", "parent_category")
@@ -19,7 +20,7 @@ class CategoryAdmin(admin.ModelAdmin[Category]):
 
 
 @admin.register(Skill)
-class SkillAdmin(admin.ModelAdmin[Skill]):
+class SkillAdmin(ImportExportModelAdmin,admin.ModelAdmin[Skill]):
     """Admin class for the Skill model."""
 
     list_display = ("name", "description", "category")
@@ -29,7 +30,7 @@ class SkillAdmin(admin.ModelAdmin[Skill]):
 
 
 @admin.register(SkillLevel)
-class SkillLevelAdmin(admin.ModelAdmin[SkillLevel]):
+class SkillLevelAdmin(ImportExportModelAdmin,admin.ModelAdmin[SkillLevel]):
     """Admin class for The SkillLevel model."""
 
     list_display = ("name", "level")
@@ -37,7 +38,7 @@ class SkillLevelAdmin(admin.ModelAdmin[SkillLevel]):
 
 
 @admin.register(UserSkill)
-class UserSkillAdmin(admin.ModelAdmin[UserSkill]):
+class UserSkillAdmin(ImportExportModelAdmin,admin.ModelAdmin[UserSkill]):
     """Admin class for The UserSkill model."""
 
     list_display = ("user", "skill", "skill_level")
