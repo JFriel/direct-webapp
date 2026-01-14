@@ -23,7 +23,6 @@ SECRET_KEY = "django-insecure-!hv_9o)--3*m5m&gpk!z@*!20pn@jgbd8s7pw8@t8&%ect$3v%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS: list[str]
 
 # Application definition
@@ -119,6 +118,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+ALLOWED_HOSTS=["localhost", "13.63.0.131", "https://www.dundeediscourse.com"]
+CSRF_TRUSTED_ORIGINS = ["https://www.dundeediscourse.com"]
+CSRF_ALLOWED_ORIGINS = ["https://www.dundeediscourse.com"]
+CORS_ORIGINS_WHITELIST = ["https://www.dundeediscourse.com"]
 
 # Custom settings
 INSTALLED_APPS = [
@@ -133,11 +136,39 @@ MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 STATIC_ROOT = BASE_DIR / "staticfiles"
 AUTH_USER_MODEL = "main.User"
 LOGIN_REDIRECT_URL = "/account/overview"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-SITE_TITLE = "DIRECT Framework"
+
+
+EMAIL_HOST = "email-smtp.eu-north-1.amazonaws.com"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = "noreply@dundeediscourse.com"
+SITE_TITLE = "Dundee DiscouRSE"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+# Redirect all HTTP to HTTPS
+#SECURE_SSL_REDIRECT = True
+
+# Ensure secure cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Prevent content type sniffing
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Prevent browser from guessing MIME types
+#SECURE_BROWSER_XSS_FILTER = True
+
+# Strict Transport Security
+#SECURE_HSTS_SECONDS = 31536000  # 1 year
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#SECURE_HSTS_PRELOAD = True
+
 
 # Ensure the logs directory exists
 LOGS_DIR = BASE_DIR / "logs"
